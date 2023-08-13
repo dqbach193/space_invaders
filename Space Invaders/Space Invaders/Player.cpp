@@ -3,7 +3,7 @@
 void Player::initVariables()
 {
 	this->mvSpeed = 10.f;
-	this->bulletCDmax = 10.f;
+	this->bulletCDmax = 5.f;
 	this->bulletCD = this->bulletCDmax;
 }
 
