@@ -6,6 +6,7 @@
 #include"Player.h"
 #include"Bullet.h"
 #include"Enemy.h"
+#include<SFML/Audio.hpp>
 
 class Game
 {
@@ -26,6 +27,7 @@ private:
 	//World
 	sf::Texture backgroundTexture;
 	sf::Sprite background;
+	sf::Music music;
 
 	//Player variables
 	Player* player;
@@ -47,6 +49,7 @@ private:
 	void initGUI();
 	void initBackground();
 	void initSystem();
+	void initSound();
 
 	void initPlayer();
 	void initEnemies();

@@ -67,6 +67,15 @@ void Game::initSystem()
 	this->points = 0;
 }
 
+void Game::initSound()
+{
+	if (!music.openFromFile("./Audios/28-days-later-ost.mp3")){
+		std::cout << "Error opening OST";
+	} // error
+	music.setVolume(70.f);
+	music.play();
+}
+
 void Game::initPlayer()
 {
 	//Init player to middle bottom
@@ -90,6 +99,7 @@ Game::Game()
 	this->initSystem();
 	this->initPlayer();
 	this->initEnemies();
+	this->initSound();
 }
 
 Game::~Game()
