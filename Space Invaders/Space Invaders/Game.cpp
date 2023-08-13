@@ -199,6 +199,11 @@ void Game::updateEnemies()
 			this->enemies.erase(this->enemies.begin() + counter);
 			--counter;
 		}
+		else if (enemy->getBounds().intersects(this->player->getBounds())){
+			delete this->enemies.at(counter);
+			this->enemies.erase(this->enemies.begin() + counter);
+			--counter;
+		}
 
 		++counter;
 	}
@@ -210,6 +215,8 @@ void Game::updateCombat()
 		bool enemyRemoved = false;
 		for (size_t j = 0; j < this->bullets.size() && !enemyRemoved; j++) {
 			if (this->enemies[i]->getBounds().intersects(this->bullets[j]->getBounds())) {
+				this->points += this->enemies[i]->getPoints();
+
 				delete this->enemies[i];
 				this->enemies.erase(this->enemies.begin() + i);
 
@@ -217,7 +224,6 @@ void Game::updateCombat()
 				this->bullets.erase(this->bullets.begin() + j);
 				enemyRemoved = true;
 
-				this->points++;
 			}
 		}
 	}
