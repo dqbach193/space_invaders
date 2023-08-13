@@ -69,19 +69,34 @@ void Game::updateInput()
 		this->player->move(-1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		this->player->move(1.f, 0.f);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		this->player->move(0.f, -1.f);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		this->player->move(0.f, 1.f);
 	//TODO: add shooting
 	
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->canShoot())
 	{
 		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x, this->player->getPos().y
-			, 0.f, 0.f, 0.f));
+			, 0.f, -1.f, 5.f));
 	}
 }
 
 void Game::updateBullets()
 {
+	unsigned counter = 0;
 	for (auto *bullet : this->bullets) {
 		bullet->update();
+
+		//When bullet goes out of the screen
+		if (bullet->getBounds().top + bullet->getBounds().height < 0.f) {
+			
+			delete this->bullets.at(counter);
+			this->bullets.erase(this->bullets.begin() + counter);
+			--counter;
+		}
+
+		++counter;
 	}
 }
 
@@ -89,6 +104,7 @@ void Game::update()
 {
 	this->updatePollEvents();
 	this->updateInput();
+	this->player->update();
 	this->updateBullets();
 }
 

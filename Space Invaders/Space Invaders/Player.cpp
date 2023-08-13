@@ -1,5 +1,12 @@
 #include "Player.h"
 
+void Player::initVariables()
+{
+	this->mvSpeed = 10.f;
+	this->bulletCDmax = 10.f;
+	this->bulletCD = this->bulletCDmax;
+}
+
 void Player::initTexture()
 {
 	//Load texture from file
@@ -20,7 +27,7 @@ void Player::initSprite()
 
 Player::Player()
 {
-	this->mvSpeed = 10.f;
+	this->initVariables();
 	this->initTexture();
 	this->initSprite();
 }
@@ -39,8 +46,24 @@ void Player::move(const float dirX, const float dirY)
 	this->sprite.move(this->mvSpeed * dirX, this->mvSpeed * dirY);
 }
 
+const bool Player::canShoot()
+{
+	if (this->bulletCD >= this->bulletCDmax) {
+		this->bulletCD = 0.f;
+		return true;
+	}
+	return false;
+}
+
+void Player::updateBullet()
+{
+	if(this->bulletCD < this->bulletCDmax)
+		this->bulletCD += 0.5f;
+}
+
 void Player::update()
 {
+	this->updateBullet();
 }
 
 void Player::render(sf::RenderTarget& target)
