@@ -27,6 +27,8 @@ private:
 	//World
 	sf::Texture backgroundTexture;
 	sf::Sprite background;
+	sf::SoundBuffer buffer;
+	sf::Sound laserGunSFX;
 	sf::Music music;
 	sf::Music endGameScream;
 

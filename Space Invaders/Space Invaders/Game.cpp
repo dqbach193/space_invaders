@@ -79,6 +79,11 @@ void Game::initSound()
 	if (!this->endGameScream.openFromFile("./Audios/eren-scream.mp3")) {
 		std::cout << "Error opening Sound effect";
 	} // error
+	if (!this->buffer.loadFromFile("./Audios/laser-gun.mp3")) {
+		std::cout << "Error opening Sound effect";
+	} // error
+	
+	this->laserGunSFX.setBuffer(buffer);
 	this->music.setVolume(70.f);
 	this->music.play();
 }
@@ -169,6 +174,7 @@ void Game::updateInput()
 	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->canShoot())
 	{
+		this->laserGunSFX.play();
 		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + 45.f
 			, this->player->getPos().y
 			, 0.f, -2.f, 5.f));
