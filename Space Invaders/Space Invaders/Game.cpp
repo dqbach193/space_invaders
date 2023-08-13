@@ -11,6 +11,8 @@ void Game::initTextures()
 {
 	this->textures["BULLET"] = new sf::Texture();
 	this->textures["BULLET"]->loadFromFile("./Textures/bullet.png");
+	this->textures["ENEMY"] = new sf::Texture();
+	this->textures["ENEMY"]->loadFromFile("./Textures/enemy.png");
 }
 
 void Game::initGUI()
@@ -208,7 +210,7 @@ void Game::updateEnemies()
 	//Spawnning
 	this->spawnTimer += 0.5f;
 	if (this->spawnTimer >= this->spawnTimerMax) {
-		this->enemies.push_back(new Enemy(rand() % this->window->getSize().x - 20.f, -100.f));
+		this->enemies.push_back(new Enemy(this->textures["ENEMY"], rand() % this->window->getSize().x - 20.f, -100.f));
 		this->spawnTimer = 0.f;
 	}
 

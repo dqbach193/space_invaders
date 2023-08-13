@@ -1,10 +1,11 @@
 #pragma once
+#include<iostream>
 #include<SFML/Graphics.hpp>
 class Enemy
 {
 private:
 	unsigned pointCount;
-	sf::CircleShape shape;
+	sf::Sprite shape;
 	int type;
 	float speed;
 	int hp;
@@ -17,7 +18,7 @@ private:
 	void initShape();
 
 public:
-	Enemy(float posX_, float posY_);
+	Enemy(sf::Texture* texture, float posX_, float posY_);
 	~Enemy();
 
 	//Setter/getter
