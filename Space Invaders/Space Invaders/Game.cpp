@@ -34,22 +34,31 @@ void Game::run()//Game loop
 	}
 }
 
-void Game::update()
+void Game::updatePollEvents()
 {
 	sf::Event ev;
-	while (this->window->pollEvent(ev)) 
+	while (this->window->pollEvent(ev))
 	{
-		if (ev.Event::type == sf::Event::Closed || 
-			ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::Escape) 
+		if (ev.Event::type == sf::Event::Closed ||
+			ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::Escape)
 			this->window->close();
 	}
+}
 
+void Game::updateInput()
+{
 	//Move player here
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		this->player->move(-1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		this->player->move(1.f, 0.f);
 	//TODO: add shooting
+}
+
+void Game::update()
+{
+	this->updatePollEvents();
+	this->updateInput();
 }
 
 void Game::render()
