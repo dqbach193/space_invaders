@@ -7,10 +7,13 @@ Game sử dụng C++ và thư viện SFML
 - W, A, S, D to move, Left-click to shoot
 - You lose HP colliding with the enemy
 - 1, 2, 3 to change the enemies
+- P to get the special ship
 
 ## Credit and sources
 Sprite made from: https://www.piskelapp.com
 
 Background is a screengrab from the Among Us game map update
+
+Special ship made by Phan Trung Hieu
 
 OST: [In the House, In a Heartbeat - John Murphy (28 Days Later Soundtrack) [Metal Remix]](https://youtu.be/c8QNTsOJ1kc)
