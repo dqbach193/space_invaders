@@ -1,4 +1,8 @@
-# Space Invaders
+<h1 align=center>Space Invaders</h1>
+<p align="center">
+<img src="./icon.png">
+</p>
+
 Game bắn người ngoài hành tinh cho lớp Lập trình nâng cao
 
 Game sử dụng C++ và thư viện SFML
@@ -7,13 +11,13 @@ Game sử dụng C++ và thư viện SFML
 - W, A, S, D to move, Left-click to shoot
 - You lose HP colliding with the enemy
 - 1, 2, 3 to change the enemies
-- P to get the special ship
+- P to get the special ship, Z for default
 
 ## Credit and sources
-Sprite made from: https://www.piskelapp.com
+Sprite and icon made from: https://www.piskelapp.com
 
 Background is a screengrab from the Among Us game map update
 
-Special ship made by Phan Trung Hieu
+Special ship made by Phan Trung Hieu (thanks bro!)
 
 OST: [In the House, In a Heartbeat - John Murphy (28 Days Later Soundtrack) [Metal Remix]](https://youtu.be/c8QNTsOJ1kc)
