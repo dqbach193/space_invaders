@@ -14,8 +14,6 @@ void Enemy::initVariables()
 
 void Enemy::initShape()
 {
-	float scale = this->getPoints()/100.f;
-	this->shape.setScale(scale, scale);
 	//this->shape.setRadius(this->pointCount * 3);
 	//this->shape.setPointCount(this->pointCount);
 	//this->shape.setFillColor(sf::Color(rand() % 255 + 1, rand() % 255 + 1, rand() % 255 + 1, 255));
@@ -26,6 +24,8 @@ Enemy::Enemy(sf::Texture* texture, float posX_, float posY_)
 	this->shape.setTexture(*texture);
 	this->initVariables();
 	this->initShape();
+	float scale = this->getPoints() / 100.f;
+	this->shape.setScale(scale, scale);
 	this->shape.setPosition(posX_, posY_);
 }
 

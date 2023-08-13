@@ -13,6 +13,12 @@ void Game::initTextures()
 	this->textures["BULLET"]->loadFromFile("./Textures/bullet.png");
 	this->textures["ENEMY"] = new sf::Texture();
 	this->textures["ENEMY"]->loadFromFile("./Textures/enemy.png");
+	this->textures["ENEMY2"] = new sf::Texture();
+	this->textures["ENEMY2"]->loadFromFile("./Textures/enemy2.png");
+	this->textures["ENEMY3"] = new sf::Texture();
+	this->textures["ENEMY3"]->loadFromFile("./Textures/enemy3.png");
+
+	this->enemyTexture = this->textures["ENEMY"];
 }
 
 void Game::initGUI()
@@ -149,6 +155,20 @@ void Game::updateInput()
 			, this->player->getPos().y
 			, 0.f, -2.f, 5.f));
 	}
+
+	//TODO: add changing skins here
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	{
+		this->enemyTexture = this->textures["ENEMY"];
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	{
+		this->enemyTexture = this->textures["ENEMY2"];
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+	{
+		this->enemyTexture = this->textures["ENEMY3"];
+	}
 }
 
 void Game::updateGUI()
@@ -210,7 +230,7 @@ void Game::updateEnemies()
 	//Spawnning
 	this->spawnTimer += 0.5f;
 	if (this->spawnTimer >= this->spawnTimerMax) {
-		this->enemies.push_back(new Enemy(this->textures["ENEMY"], rand() % this->window->getSize().x - 20.f, -100.f));
+		this->enemies.push_back(new Enemy(this->enemyTexture, rand() % this->window->getSize().x - 20.f, -100.f));
 		this->spawnTimer = 0.f;
 	}
 

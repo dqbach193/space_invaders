@@ -8,3 +8,4 @@ Game sử dụng C++ và thư viện SFML
 - You lose HP colliding with the enemy
 
 Sprite made from: https://www.piskelapp.com
+Background is a screengrab from the Among Us game map update
