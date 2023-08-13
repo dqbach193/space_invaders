@@ -26,6 +26,16 @@ void Game::initGUI()
 	this->pointsText.setOutlineColor(sf::Color::Black);
 	this->pointsText.setOutlineThickness(2.f);
 
+	//Init Gameover
+	this->gameOverText.setFont(this->font);
+	this->gameOverText.setCharacterSize(90.f);
+	this->gameOverText.setFillColor(sf::Color::Red);
+	this->gameOverText.setOutlineColor(sf::Color::Black);
+	this->gameOverText.setOutlineThickness(8.f);
+	this->gameOverText.setString("Game Over");
+	this->gameOverText.setPosition(this->window->getSize().x / 2.f - this->gameOverText.getGlobalBounds().width/2.f,
+		this->window->getSize().y / 2.f - this->gameOverText.getGlobalBounds().height / 2.f);
+
 	//Init player GUI
 	this->playerHP.setSize(sf::Vector2f(300.f, 25.f));
 	this->playerHP.setFillColor(sf::Color::Red);
@@ -99,8 +109,11 @@ Game::~Game()
 void Game::run()//Game loop
 {
 	while (this->window->isOpen()) {
-		this->update();
-		this->render();
+		this->updatePollEvents();
+		if (this->player->getHP() > 0) {
+			this->update();
+			this->render();
+		}
 	}
 }
 
@@ -145,7 +158,6 @@ void Game::updateGUI()
 	this->pointsText.setString(ss.str());
 
 	//Update HP Bar
-	this->player->setHP(5);
 	float hpPercent = static_cast<float> (this->player->getHP()) / this->player->getHPMax();
 	this->playerHP.setSize(sf::Vector2f(300.f * hpPercent,this->playerHP.getSize().y));
 }
@@ -211,8 +223,10 @@ void Game::updateEnemies()
 			delete this->enemies.at(counter);
 			this->enemies.erase(this->enemies.begin() + counter);
 			--counter;
-		}
+		}//Enemy collides with player
 		else if (enemy->getBounds().intersects(this->player->getBounds())){
+			this->player->loseHP(this->enemies.at(counter)->getDamage());
+
 			delete this->enemies.at(counter);
 			this->enemies.erase(this->enemies.begin() + counter);
 			--counter;
@@ -245,7 +259,6 @@ void Game::updateCombat()
 
 void Game::update()
 {
-	this->updatePollEvents();
 	this->updateInput();
 	this->updateCollision();
 	this->player->update();
@@ -286,6 +299,9 @@ void Game::render()
 
 	this->renderGUI();
 
+	//Game over screen
+	if (this->player->getHP() <= 0)
+		this->window->draw(this->gameOverText);
 
 	//Show to screen
 	this->window->display();

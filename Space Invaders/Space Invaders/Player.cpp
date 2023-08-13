@@ -6,6 +6,9 @@ void Player::initVariables()
 	this->bulletCDmax = 5.f;
 	this->bulletCD = this->bulletCDmax;
 	this->sprite.setPosition(100.f, 100.f);
+
+	this->hpMax = 100;
+	this->hp = this->hpMax;
 }
 
 void Player::initTexture()
@@ -31,9 +34,6 @@ Player::Player(sf::Vector2f pos_)
 	this->initVariables();
 	this->initTexture();
 	this->initSprite();
-
-	this->hpMax = 10;
-	this->hp = this->hpMax;
 
 	pos_.x -= this->sprite.getGlobalBounds().width * this->sprite.getScale().x * 2;
 	pos_.y -= this->sprite.getGlobalBounds().height;
@@ -82,6 +82,8 @@ void Player::setHP(const int hp)
 void Player::loseHP(const int value)
 {
 	this->hp -= value;
+	if(this->hp < 0)
+		this->hp = 0;
 }
 
 void Player::move(const float dirX, const float dirY)

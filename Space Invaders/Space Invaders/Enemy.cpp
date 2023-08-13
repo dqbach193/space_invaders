@@ -43,6 +43,12 @@ const int& Enemy::getPoints() const
 	return this->points;
 }
 
+const int& Enemy::getDamage() const
+{
+	// TODO: insert return statement here
+	return this->damage;
+}
+
 void Enemy::update()
 {
 	this->shape.move(0.f, this->speed);
