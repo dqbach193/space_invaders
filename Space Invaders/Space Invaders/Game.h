@@ -29,6 +29,10 @@ private:
 	Player* player;
 	unsigned points;
 
+	//Player GUI
+	sf::RectangleShape playerHP;
+	sf::RectangleShape playerHPBack;
+
 	//Enemies
 	float spawnTimer;
 	float spawnTimerMax;
