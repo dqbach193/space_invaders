@@ -17,6 +17,8 @@ void Game::initTextures()
 	this->textures["ENEMY2"]->loadFromFile("./Textures/enemy2.png");
 	this->textures["ENEMY3"] = new sf::Texture();
 	this->textures["ENEMY3"]->loadFromFile("./Textures/enemy3.png");
+	this->textures["PHAN"] = new sf::Texture();
+	this->textures["PHAN"]->loadFromFile("./Textures/phan.png");
 
 	this->enemyTexture = this->textures["ENEMY"];
 }
@@ -184,6 +186,10 @@ void Game::updateInput()
 		this->enemyTexture = this->textures["ENEMY3"];
 	}
 	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		this->player->setTexture(this->textures["PHAN"]);
+	}
 }
 
 void Game::updateGUI()

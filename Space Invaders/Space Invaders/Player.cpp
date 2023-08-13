@@ -86,6 +86,11 @@ void Player::loseHP(const int value)
 		this->hp = 0;
 }
 
+void Player::setTexture(sf::Texture* texture)
+{
+	this->sprite.setTexture(*texture);
+}
+
 void Player::move(const float dirX, const float dirY)
 {
 	this->sprite.move(this->mvSpeed * dirX, this->mvSpeed * dirY);

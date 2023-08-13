@@ -36,6 +36,7 @@ public:
 	void setPos(const float posX_, const float posY_);
 	void setHP(const int hp);
 	void loseHP(const int value);
+	void setTexture(sf::Texture* texture);
 	//Functions
 	void move(const float dirX, const float dirY); 
 
