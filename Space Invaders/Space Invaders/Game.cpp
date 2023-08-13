@@ -20,10 +20,25 @@ void Game::initGUI()
 		std::cout << "Failed to load fonts.\n";
 	}
 	//Init point
-	this->points.setFont(this->font);
-	this->points.setCharacterSize(30);
-	this->points.setFillColor(sf::Color::White);
-	this->points.setString("Test");
+	this->pointsText.setFont(this->font);
+	this->pointsText.setCharacterSize(35.f);
+	this->pointsText.setFillColor(sf::Color::White);
+	this->pointsText.setOutlineColor(sf::Color::Black);
+	this->pointsText.setOutlineThickness(2.f);
+}
+
+void Game::initBackground()
+{
+	if (!this->backgroundTexture.loadFromFile("./Textures/background.jpg")) {
+		std::cout << "Failed to load background.\n";
+	}
+	this->background.scale(0.5f, 0.5f);
+	this->background.setTexture(this->backgroundTexture);
+}
+
+void Game::initSystem()
+{
+	this->points = 0;
 }
 
 void Game::initPlayer()
@@ -45,6 +60,8 @@ Game::Game()
 	this->initWindow();
 	this->initTextures();
 	this->initGUI();
+	this->initBackground();
+	this->initSystem();
 	this->initPlayer();
 	this->initEnemies();
 }
@@ -113,6 +130,34 @@ void Game::updateInput()
 
 void Game::updateGUI()
 {
+	std::stringstream ss;
+	ss <<"Points " << this->points;
+
+	
+	this->pointsText.setString(ss.str());
+}
+
+void Game::updateWorld()
+{
+}
+
+void Game::updateCollision()
+{
+	//Left screen collision
+	if (this->player->getBounds().left < 0.f) {
+		this->player->setPos(0.f, this->player->getBounds().top);
+	}//Right screen collision
+	else if (this->player->getBounds().left + this->player->getBounds().width >= this->window->getSize().x) {
+		this->player->setPos(this->window->getSize().x - this->player->getBounds().width, this->player->getBounds().top);
+	}
+
+	//Top screen collision
+	if (this->player->getBounds().top < 0.f) {
+		this->player->setPos(this->player->getBounds().left, 0.f);
+	}//Bottom screen collision
+	else if (this->player->getBounds().top + this->player->getBounds().height >= this->window->getSize().y) {
+		this->player->setPos(this->player->getBounds().left, this->window->getSize().y - this->player->getBounds().height);
+	}
 }
 
 void Game::updateBullets()
@@ -171,6 +216,8 @@ void Game::updateCombat()
 				delete this->bullets[j];
 				this->bullets.erase(this->bullets.begin() + j);
 				enemyRemoved = true;
+
+				this->points++;
 			}
 		}
 	}
@@ -181,22 +228,31 @@ void Game::update()
 {
 	this->updatePollEvents();
 	this->updateInput();
+	this->updateCollision();
 	this->player->update();
 	this->updateBullets();
 	this->updateEnemies();
 	this->updateCombat();
 	this->updateGUI();
+	this->updateWorld();
 }
 
 void Game::renderGUI()
 {
-	this->window->draw(this->points);
+	this->window->draw(this->pointsText);
+}
+
+void Game::renderBackground()
+{
+	this->window->draw(this->background);
 }
 
 void Game::render()
 {
 	this->window->clear();
 	//Draw stuff
+	this->renderBackground();
+
 	this->player->render(*this->window);
 
 	for (auto *bullet : this->bullets) {
@@ -208,6 +264,7 @@ void Game::render()
 	}
 
 	this->renderGUI();
+
 
 	//Show to screen
 	this->window->display();
