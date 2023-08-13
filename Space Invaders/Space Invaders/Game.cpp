@@ -71,9 +71,10 @@ void Game::updateInput()
 		this->player->move(1.f, 0.f);
 	//TODO: add shooting
 	
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-		this->bullets.push_back(new Bullet(this->textures["BULLET"], 0.f, 0.f, 0.f, 0.f, 0.f));
+		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x, this->player->getPos().y
+			, 0.f, 0.f, 0.f));
 	}
 }
 
