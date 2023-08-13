@@ -54,7 +54,7 @@ const int& Enemy::getDamage() const
 
 void Enemy::update()
 {
-	this->shape.move(0.f, this->speed);
+	this->shape.move(0.f, this->speed * 1.5);
 }
 
 void Enemy::render(sf::RenderTarget* target)

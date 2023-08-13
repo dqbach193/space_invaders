@@ -28,6 +28,7 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Sprite background;
 	sf::Music music;
+	sf::Music endGameScream;
 
 	//Player variables
 	Player* player;

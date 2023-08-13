@@ -69,11 +69,14 @@ void Game::initSystem()
 
 void Game::initSound()
 {
-	if (!music.openFromFile("./Audios/28-days-later-ost.mp3")){
+	if (!this->music.openFromFile("./Audios/28-days-later-ost.mp3")){
 		std::cout << "Error opening OST";
 	} // error
-	music.setVolume(70.f);
-	music.play();
+	if (!this->endGameScream.openFromFile("./Audios/eren-scream.mp3")) {
+		std::cout << "Error opening Sound effect";
+	} // error
+	this->music.setVolume(70.f);
+	this->music.play();
 }
 
 void Game::initPlayer()
@@ -143,6 +146,7 @@ void Game::updatePollEvents()
 		if (ev.Event::type == sf::Event::Closed ||
 			ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::Escape)
 			this->window->close();
+		//TODO: add a play again fucntion
 	}
 }
 
@@ -179,6 +183,7 @@ void Game::updateInput()
 	{
 		this->enemyTexture = this->textures["ENEMY3"];
 	}
+	
 }
 
 void Game::updateGUI()
@@ -332,8 +337,10 @@ void Game::render()
 	this->renderGUI();
 
 	//Game over screen
-	if (this->player->getHP() <= 0)
+	if (this->player->getHP() <= 0) {
 		this->window->draw(this->gameOverText);
+		this->endGameScream.play();
+	}
 
 	//Show to screen
 	this->window->display();
