@@ -7,15 +7,22 @@ void Game::initWindow()
 	this->window->setVerticalSyncEnabled(false);
 }
 
+void Game::initPlayer()
+{
+	this->player = new Player();
+}
+
 //Constructors/Deconstructors
 Game::Game()
 {
 	this->initWindow();
+	this->initPlayer();
 }
 
 Game::~Game()
 {
 	delete this->window;
+	delete this->player;
 }
 
 //Functions
@@ -36,12 +43,21 @@ void Game::update()
 			ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::Escape) 
 			this->window->close();
 	}
+
+	//Move player here
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		this->player->move(-1.f, 0.f);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		this->player->move(1.f, 0.f);
+	//TODO: add shooting
 }
 
 void Game::render()
 {
 	this->window->clear();
 	//Draw stuff
+	this->player->render(*this->window);
 
+	//Show to screen
 	this->window->display();
 }
