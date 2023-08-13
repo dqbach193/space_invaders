@@ -15,7 +15,8 @@ void Game::initTextures()
 
 void Game::initPlayer()
 {
-	this->player = new Player();
+	//Init player to middle bottom
+	this->player = new Player(sf::Vector2f(this->window->getSize().x/2, this->window->getSize().y));
 	this->enemy = new Enemy(20.f, 20.f);
 }
 

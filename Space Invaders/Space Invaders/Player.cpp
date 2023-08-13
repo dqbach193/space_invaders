@@ -5,6 +5,7 @@ void Player::initVariables()
 	this->mvSpeed = 10.f;
 	this->bulletCDmax = 5.f;
 	this->bulletCD = this->bulletCDmax;
+	this->sprite.setPosition(100.f, 100.f);
 }
 
 void Player::initTexture()
@@ -25,11 +26,15 @@ void Player::initSprite()
 
 }
 
-Player::Player()
+Player::Player(sf::Vector2f pos_)
 {
 	this->initVariables();
 	this->initTexture();
 	this->initSprite();
+
+	pos_.x -= this->sprite.getGlobalBounds().width * this->sprite.getScale().x * 2;
+	pos_.y -= this->sprite.getGlobalBounds().height;
+	this->sprite.setPosition(pos_);
 }
 
 Player::~Player()

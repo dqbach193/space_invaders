@@ -20,7 +20,7 @@ private:
 	void initSprite();
 
 public:
-	Player();
+	Player(sf::Vector2f pos_);
 	~Player();
 
 	//Setter/getter
