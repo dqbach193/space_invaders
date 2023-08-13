@@ -2,6 +2,7 @@
 
 #include<map>
 #include"Player.h"
+#include"Bullet.h"
 
 class Game
 {
@@ -10,7 +11,8 @@ private:
 	sf::RenderWindow* window;
 
 	//Resources
-	std::map<std::string, sf::Texture> texture;
+	std::map<std::string, sf::Texture*> textures;
+	std::vector<Bullet*> bullets;
 	
 	//Player variables
 	Player* player;
@@ -29,6 +31,7 @@ public:
 	
 	void updatePollEvents();
 	void updateInput();
+	void updateBullets();
 	void update();
 	void render();
 };
