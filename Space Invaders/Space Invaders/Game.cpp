@@ -13,6 +13,19 @@ void Game::initTextures()
 	this->textures["BULLET"]->loadFromFile("./Textures/bullet.png");
 }
 
+void Game::initGUI()
+{
+	//Load fonts
+	if (!this->font.loadFromFile("./Fonts/28 Days Later.ttf")) {
+		std::cout << "Failed to load fonts.\n";
+	}
+	//Init point
+	this->points.setFont(this->font);
+	this->points.setCharacterSize(24);
+	this->points.setFillColor(sf::Color::White);
+	this->points.setString("Test");
+}
+
 void Game::initPlayer()
 {
 	//Init player to middle bottom
@@ -31,6 +44,7 @@ Game::Game()
 {
 	this->initWindow();
 	this->initTextures();
+	this->initGUI();
 	this->initPlayer();
 	this->initEnemies();
 }
@@ -97,6 +111,10 @@ void Game::updateInput()
 	}
 }
 
+void Game::updateGUI()
+{
+}
+
 void Game::updateBullets()
 {
 	unsigned counter = 0;
@@ -115,7 +133,7 @@ void Game::updateBullets()
 	}
 }
 
-void Game::updateEnemies()
+void Game::updateEnemiesAndCombat()
 {
 	this->spawnTimer += 0.5f;
 	if (this->spawnTimer >= this->spawnTimerMax) {
@@ -124,10 +142,25 @@ void Game::updateEnemies()
 	}
 
 	for (int i = 0; i < this->enemies.size();i++) {
+		bool enemyRemoved = false;
 		this->enemies[i]->update();
-		//Remove enemy at bottom of the screen
-		if (this->enemies[i]->getBounds().top > this->window->getSize().y) {
-			this->enemies.erase(this->enemies.begin() + i);
+
+		for (size_t j = 0; j < this->bullets.size() && !enemyRemoved; j++) {
+			if (this->bullets[j]->getBounds().intersects(this->enemies[i]->getBounds()))
+			{
+				this->bullets.erase(this->bullets.begin() + j);
+				this->enemies.erase(this->enemies.begin() + i);
+				enemyRemoved = true;
+			}
+		}
+
+
+		if (!enemyRemoved) {
+			//Remove enemy at bottom of the screen
+			if (this->enemies[i]->getBounds().top > this->window->getSize().y) {
+				this->enemies.erase(this->enemies.begin() + i);
+				enemyRemoved = true;
+			}
 		}
 	}
 }
@@ -138,7 +171,13 @@ void Game::update()
 	this->updateInput();
 	this->player->update();
 	this->updateBullets();
-	this->updateEnemies();
+	this->updateEnemiesAndCombat();
+	this->updateGUI();
+}
+
+void Game::renderGUI()
+{
+	this->window->draw(this->points);
 }
 
 void Game::render()
@@ -155,6 +194,10 @@ void Game::render()
 		enemy->render(this->window);
 	}
 
+	this->renderGUI();
+
 	//Show to screen
 	this->window->display();
 }
+
+
