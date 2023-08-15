@@ -24,6 +24,7 @@ private:
 
 	sf::Text gameOverText;
 	sf::Text gameOverGuideText;
+	sf::Text pausedText;
 
 	//World
 	sf::Texture backgroundTexture;

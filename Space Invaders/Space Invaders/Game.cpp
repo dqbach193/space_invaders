@@ -58,6 +58,15 @@ void Game::initGUI()
 	this->gameOverGuideText.setPosition(this->window->getSize().x / 2.f - this->gameOverGuideText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f + this->gameOverText.getGlobalBounds().height / 2.f);
 
+	this->pausedText.setFont(this->font);
+	this->pausedText.setCharacterSize(90.f);
+	this->pausedText.setFillColor(sf::Color::White);
+	this->pausedText.setOutlineColor(sf::Color::Black);
+	this->pausedText.setOutlineThickness(6.f);
+	this->pausedText.setString("Paused");
+	this->pausedText.setPosition(this->window->getSize().x / 2.f - this->pausedText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->pausedText.getGlobalBounds().height / 2.f);
+
 	//Init player GUI
 	this->playerHP.setSize(sf::Vector2f(300.f, 25.f));
 	this->playerHP.setFillColor(sf::Color::Red);
@@ -160,8 +169,11 @@ void Game::run()//Game loop
 {
 	while (this->window->isOpen()) {
 		this->updatePollEvents();
+		std::cout << pause;
 		if (this->player->getHP() > 0) {
-			this->update();
+			if (!pause){
+				this->update();
+		}
 			this->render();
 		}
 	}
@@ -183,12 +195,10 @@ void Game::updatePollEvents()
 		}
 
 		if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F2) {
-			if (this->pause) {
-				this->pause = false;
-			}
-			else {
-				this->pause = true;
-			}
+			this->pause = true;
+		}
+		if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F3) {
+			this->pause = false;
 		}
 	}
 }
@@ -387,6 +397,10 @@ void Game::render()
 	}
 
 	this->renderGUI();
+
+	if (this->pause) {
+		this->window->draw(this->pausedText);
+	}
 
 	//Game over screen
 	if (this->player->getHP() <= 0) {
