@@ -131,6 +131,7 @@ Game::Game()
 	this->initEnemies();
 	this->initSound();
 	this->gameOver = false;
+	this->pause = false;
 }
 
 Game::~Game()
@@ -176,9 +177,17 @@ void Game::updatePollEvents()
 			this->window->close();
 		//TODO: add a play again fucntion
 		if (gameOver) {//Only F1 when game is over
-			if (ev.Event::type == sf::Event::Closed ||
-				ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F1) {
+			if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F1) {
 				this->initRestart();
+			}
+		}
+
+		if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F2) {
+			if (this->pause) {
+				this->pause = false;
+			}
+			else {
+				this->pause = true;
 			}
 		}
 	}
@@ -339,14 +348,14 @@ void Game::updateCombat()
 
 void Game::update()
 {
-	this->updateInput();
-	this->updateCollision();
-	this->player->update();
-	this->updateBullets();
-	this->updateEnemies();
-	this->updateCombat();
-	this->updateGUI();
-	this->updateWorld();
+		this->updateInput();
+		this->updateCollision();
+		this->player->update();
+		this->updateBullets();
+		this->updateEnemies();
+		this->updateCombat();
+		this->updateGUI();
+		this->updateWorld();
 }
 
 void Game::renderGUI()

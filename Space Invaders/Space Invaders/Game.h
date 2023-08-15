@@ -33,6 +33,7 @@ private:
 	sf::Music music;
 	sf::Music endGameScream;
 	bool gameOver;
+	bool pause;
 
 	//Player variables
 	Player* player;
