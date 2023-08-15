@@ -191,7 +191,7 @@ void Game::updatePollEvents()
 		//TODO: add a play again fucntion
 		if (gameOver) {//Only F1 when game is over
 			if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F1) {
-				this->initRestart();
+				//this->initRestart();
 			}
 		}
 
