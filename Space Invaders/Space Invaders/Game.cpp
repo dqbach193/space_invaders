@@ -365,14 +365,14 @@ void Game::updateCombat()
 
 void Game::update()
 {
-		this->updateInput();
-		this->updateCollision();
-		this->player->update();
-		this->updateBullets();
-		this->updateEnemies();
-		this->updateCombat();
-		this->updateGUI();
-		this->updateWorld();
+	this->updateInput();
+	this->updateCollision();
+	this->player->update();
+	this->updateBullets();
+	this->updateEnemies();
+	this->updateCombat();
+	this->updateGUI();
+	this->updateWorld();
 }
 
 void Game::renderGUI()

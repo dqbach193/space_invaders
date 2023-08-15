@@ -27,4 +27,6 @@ Background is a screengrab from the Among Us game map update
 
 Special ship made by Phan Trung Hieu (thanks bro!)
 
+Based on techniques from [Suraj Sharma's 'C++ SFML Simple Apps and Games' series](https://www.youtube.com/playlist?list=PL6xSOsbVA1eb_QqMTTcql_3PdOiE928up)
+
 OST: [In the House, In a Heartbeat - John Murphy (28 Days Later Soundtrack) [Metal Remix]](https://youtu.be/c8QNTsOJ1kc)
