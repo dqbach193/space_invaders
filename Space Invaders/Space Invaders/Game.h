@@ -23,6 +23,7 @@ private:
 	sf::Text pointsText;
 
 	sf::Text gameOverText;
+	sf::Text gameOverGuideText;
 
 	//World
 	sf::Texture backgroundTexture;
@@ -31,6 +32,7 @@ private:
 	sf::Sound laserGunSFX;
 	sf::Music music;
 	sf::Music endGameScream;
+	bool gameOver;
 
 	//Player variables
 	Player* player;
@@ -56,6 +58,8 @@ private:
 
 	void initPlayer();
 	void initEnemies();
+
+	void initRestart();
 
 public:
 	Game();

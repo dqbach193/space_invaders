@@ -48,6 +48,16 @@ void Game::initGUI()
 	this->gameOverText.setPosition(this->window->getSize().x / 2.f - this->gameOverText.getGlobalBounds().width/2.f,
 		this->window->getSize().y / 2.f - this->gameOverText.getGlobalBounds().height / 2.f);
 
+	//Init game over guide text
+	this->gameOverGuideText.setFont(this->font);
+	this->gameOverGuideText.setCharacterSize(30.f);
+	this->gameOverGuideText.setFillColor(sf::Color::Red);
+	this->gameOverGuideText.setOutlineColor(sf::Color::Black);
+	this->gameOverGuideText.setOutlineThickness(4.f);
+	this->gameOverGuideText.setString("F1 to play again or ESC to quit");
+	this->gameOverGuideText.setPosition(this->window->getSize().x / 2.f - this->gameOverGuideText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f + this->gameOverText.getGlobalBounds().height / 2.f);
+
 	//Init player GUI
 	this->playerHP.setSize(sf::Vector2f(300.f, 25.f));
 	this->playerHP.setFillColor(sf::Color::Red);
@@ -101,6 +111,14 @@ void Game::initEnemies()
 	this->spawnTimer = this->spawnTimerMax;
 }
 
+void Game::initRestart() {
+	this->initGUI();
+	this->initSystem();
+	this->initPlayer();
+	this->initEnemies();
+	this->gameOver = false;
+}
+
 //Constructors/Deconstructors
 Game::Game()
 {
@@ -112,6 +130,7 @@ Game::Game()
 	this->initPlayer();
 	this->initEnemies();
 	this->initSound();
+	this->gameOver = false;
 }
 
 Game::~Game()
@@ -156,6 +175,12 @@ void Game::updatePollEvents()
 			ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::Escape)
 			this->window->close();
 		//TODO: add a play again fucntion
+		if (gameOver) {//Only F1 when game is over
+			if (ev.Event::type == sf::Event::Closed ||
+				ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F1) {
+				this->initRestart();
+			}
+		}
 	}
 }
 
@@ -357,7 +382,9 @@ void Game::render()
 	//Game over screen
 	if (this->player->getHP() <= 0) {
 		this->window->draw(this->gameOverText);
+		this->window->draw(this->gameOverGuideText);
 		this->endGameScream.play();
+		this->gameOver = true;
 	}
 
 	//Show to screen
