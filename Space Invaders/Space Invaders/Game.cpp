@@ -96,14 +96,16 @@ void Game::initSound()
 		std::cout << "Error opening OST";
 	} // error
 	if (!this->endGameScream.openFromFile("./Audios/eren-scream.mp3")) {
-		std::cout << "Error opening Sound effect";
+		std::cout << "Error opening Sound effect: eren-scream.mp3";
 	} // error
 	if (!this->buffer.loadFromFile("./Audios/laser-gun.mp3")) {
-		std::cout << "Error opening Sound effect";
+		std::cout << "Error opening Sound effect: laser-gun.mp3";
 	} // error
 	
 	this->laserGunSFX.setBuffer(buffer);
-	this->music.setVolume(70.f);
+	this->laserGunSFX.setPitch(2.f);
+	this->laserGunSFX.setVolume(50.f);
+	this->music.setVolume(50.f);
 	this->music.play();
 }
 
@@ -169,7 +171,6 @@ void Game::run()//Game loop
 {
 	while (this->window->isOpen()) {
 		this->updatePollEvents();
-		std::cout << pause;
 		if (this->player->getHP() > 0) {
 			if (!pause){
 				this->update();
@@ -199,6 +200,12 @@ void Game::updatePollEvents()
 		}
 		if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F3) {
 			this->pause = false;
+		}
+		if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F4) {
+			this->music.pause();
+		}
+		if (ev.Event::KeyPressed && ev.Event::key.code == sf::Keyboard::F5) {
+			this->music.play();
 		}
 	}
 }

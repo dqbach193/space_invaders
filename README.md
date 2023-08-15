@@ -13,6 +13,7 @@ Game sử dụng C++ và thư viện SFML
 - 1, 2, 3 to change the enemies
 - P to get the special ship, Z for default
 - F2 to pause the game, F3 to resume playing
+- F4 to pause the music, F5 to resume playing music
 ## Cloning and building
 - Download the [SFML](https://www.sfml-dev.org/download/sfml/2.6.0/) for Visual C++ 17 (2022) - 32-bit
 - Copy `include` and `lib` folders to `External` folder on the project
